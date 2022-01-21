@@ -26,7 +26,7 @@ const routes = [
       { path: '/roles', component: Roles },
       { path: '/categories', component: Cate },
       { path: '/params', component: Params },
-      { path: '/list', component: List }
+      { path: '/goods', component: List }
     ]
   }
 ]
