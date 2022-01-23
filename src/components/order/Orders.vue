@@ -147,7 +147,6 @@ export default {
       }
       this.total = res.data.total
       this.orderList = res.data.goods
-      console.log(this.queryInfo)
     },
     // 更改页面数据大小
     handleSizeChange(newSize) {
