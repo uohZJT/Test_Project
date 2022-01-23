@@ -12,6 +12,12 @@ import './assets/fonts/iconfont.css'
 // 导入axios
 import axios from 'axios'
 
+// 全局挂载 VueQuillEditor
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 Vue.config.productionTip = false
 // 使用elementui
 Vue.use(ElementUI)
@@ -25,6 +31,21 @@ axios.interceptors.request.use(config => {
   // 最后必须return config
   return config
 })
+
+// 定义时间处理函数
+Vue.filter('dateFormat', function(originVal) {
+  const date = new Date(originVal)
+  const y = date.getFullYear()
+  // 返回的0代表1月，因此要+1；将数字转为字符串需要+''；padStart可以组成长度为2的字符串，不足2位，用0替换第一位
+  const m = (date.getMonth() + 1 + '').padStart(2, '0')
+  const d = (date.getDate() + '').padStart(2, '0')
+  const hh = (date.getHours() + '').padStart(2, '0')
+  const mm = (date.getMinutes() + '').padStart(2, '0')
+  const ss = (date.getSeconds() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
+Vue.use(VueQuillEditor)
 
 Vue.prototype.$http = axios
 // 配置全局弹框提示
