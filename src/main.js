@@ -11,12 +11,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/fonts/iconfont.css'
 // 导入axios
 import axios from 'axios'
-
 // 全局挂载 VueQuillEditor
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+// 导入NProgress和它的样式表
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 // 使用elementui
@@ -25,10 +27,18 @@ Vue.use(ElementUI)
 Vue.component('tree-table', TreeTable)
 // 配置请求和根路径
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
-// 设置请求拦截
+// 设置请求拦截，并在拦截其中展示进度条
 axios.interceptors.request.use(config => {
+  // 展示进度条
+  NProgress.start()
+  // 验证headers.Authorization是否有token
   config.headers.Authorization = window.sessionStorage.getItem('token')
   // 最后必须return config
+  return config
+})
+// 在response拦截器中隐藏进度条
+axios.interceptors.response.use(config => {
+  NProgress.done()
   return config
 })
 
