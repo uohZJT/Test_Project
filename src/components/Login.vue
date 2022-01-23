@@ -66,7 +66,6 @@ export default {
           return this.$message.error('登陆失败')
         }
         this.$message.success('登陆成功')
-        console.log(res)
         // 将token保存到sessionstorage
         window.sessionStorage.setItem('token', res.data.token)
         // 登陆成功后跳转到home
